@@ -1,13 +1,15 @@
 import React from 'react';
 import './MyDate.css'
 
-const MyDate = () => {
+const MyDate = (props) => {
+    const month = props.date.toLocaleString('zn-CN',{month:'numeric'})
+    const day = props.date.getDate()
     return (
         <div>
             {/* 日期容器 */}
             <div className='date'>
-                <div className='month'>4</div>
-                <div className='day'>12</div>
+                <div className='month'>{month}</div>
+                <div className='day'>{day}</div>
             </div>
         </div>
     );
