@@ -1,0 +1,37 @@
+.item{
+    background-color: #fcbf49;
+    display:flex;
+    margin: 16px 0;
+    padding: 6px;
+
+    position: relative;
+    z-index: 1;
+}
+
+.content{
+    flex: auto;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.desc{
+    font-size: 23px;
+}
+
+.time{
+    color: #d62828;
+}
+
+.delete{
+    margin-right: 10px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    /* 小手 */
+    cursor: pointer;
+}
+
+.delete:hover{
+    color: chocolate;
+}

@@ -99,3 +99,92 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
         - 创建一个存储DOM对象的容器——使用useRef()钩子函数 const ref = useRef()
 
 3. useRef返回的就是一个普通js对象
+
+
+## Card组件
+
+#### Card.js
+**props.childern传递Logs模块以及Logs的className**
+```
+    const Card = (props) => {
+        return (
+            <div className={`card ${props.className}`}>
+                {props.children}
+            </div>
+        );
+    };
+```
+
+#### Logs.js
+**```<div>变为<Card>```**
+```
+    return <Card className="logs">
+        {
+            logItemDate
+        }
+    </Card>
+
+```
+
+## 表单
+1. 当表单发生变化，获取用户输入的内容
+创建一个响应函数，监听表单变化
+```
+    const descChangeHandler = (e)=>{
+        //事件对象e中保存了当前事件触发时的所有信息
+        //event.target执行的是触发事件的对象
+        inputDesc = e.target.value;
+    }
+
+    <input onChange={descChangeHandler} id="desc" type="text"/>
+```
+
+2. 当表单提交时，汇总表单中数据
+在react中表单不需要自行提交，而是通过react提交
+- 取消表单默认行为——e.preventDefault();
+- 创建三个变量(inputDate,inputDesc,inputTime)存储表单中的数据，存储到一个对象当中
+
+```
+    const formSubmitHandler = (e)=>{
+        //取消表单默认行为
+        e.preventDefault();
+
+        const newLog = {
+            date: new Date(inputDate),
+            desc:inputDesc,
+            time:inputTime
+        }
+
+        console.log(newLog);
+    }
+```
+
+3. 提交表单后如何清空表单中的旧数据（现在的表单在react中为非受控组件）
+    - 将state设置为表单的value值，当表单项发生变化state会随之改变，反之state变化表单项也跟着变化（双向绑定）==> 表单变为受控组件
+
+4. 当一个数据需要被多个组件使用时，可以将数据放入这些组件共同的**祖先元素**中
+- 组件间的通信：
+    - 子传父：调用父组件传递的函数，通过函数传递实参传递数据
+    - 父传子：props
+
+
+#### portal
+弹出层遮罩
+1. 在index.html添加一个新元素
+2. 修改组件渲染方式
+    - 通过**ReactDOM.createPortal()**作为返回值创建元素
+    - 参数：jsx（修改前return后代码）、目标位置（DOM元素）
+
+```
+    //获取backdrop的根元素
+    const backdropRoot = document.getElementById('backdrop-root')
+
+    const BackDrop = (props) => {
+        return ReactDOM.createPortal(
+            <div className='backDrop'>
+                {/* 子元素放到遮罩中，props传递Confirm子组件 */}
+                {props.children}
+            </div>, backdropRoot
+        );
+    };
+```
