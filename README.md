@@ -100,6 +100,8 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
 
 3. useRef返回的就是一个普通js对象
 
+***
+
 
 ## Card组件
 
@@ -125,6 +127,8 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
     </Card>
 
 ```
+
+***
 
 ## 表单
 1. 当表单发生变化，获取用户输入的内容
@@ -167,6 +171,7 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
     - 子传父：调用父组件传递的函数，通过函数传递实参传递数据
     - 父传子：props
 
+***
 
 #### portal
 弹出层遮罩
@@ -188,3 +193,45 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
         );
     };
 ```
+
+***
+
+## create-react-app
+```npx create-react-app 项目名```
+
+#### 样式
+- 内联样式 & state
+```
+    const [redBorder, setRedBorder] = useState(true)
+
+    const sy = {color:redBorder?'red':'blue'}
+
+    const colorClick = ()=>{
+        setRedBorder(false)
+    }
+
+    return (
+        <div>
+            <p style={sy}>我是一个段落</p>
+            <button onClick={colorClick}>click</button>
+        </div>
+    );
+```
+
+- 外部样式表 xxx.css & state
+      可能会出现重复样式
+
+- css Module模块（解决了样式重复问题）
+    1. 创建xxx.module.css
+    2. 在组件引入css
+    3. 通过任意名称来设置类
+    4. 如 任意名称.p1 来调用样式
+
+
+## React.Fragment == <></>
+
+<p>专门用来作为父容器组件，只会将内部的子元素直接返回，不会创建多余元素</p>
+
+
+
+
