@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from './Counter.module.css'
+import CartContext from '../../../store/cart-context';
 
 // 计数器组件
 
 const Counter = (props) => {
+    //context app->counter
+    const ctx = useContext(CartContext)
 
     const addButtonHandler = ()=>{
-        props.onAdd(props.meal);
+        // props.onAdd(props.meal);
+        ctx.addItem(props.meal)
     }
 
     const subButtonHandler = ()=>{
-        props.onSub(props.meal);
+        // props.onSub(props.meal);
+        ctx.removeItem(props.meal)
     }
 
     return (

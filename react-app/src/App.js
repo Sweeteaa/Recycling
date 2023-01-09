@@ -1,6 +1,9 @@
 import React from 'react';
 import Meals from './components/Meals/Meals';
 import { useState } from 'react'
+import CartContext from './store/cart-context';
+import FilterMeals from './components/FilterMeals/FilterMeals';
+import Cart from './components/Cart/Cart';
 
 // 模拟一组食物数据
 const MEALS_DATA = [
@@ -69,7 +72,13 @@ const App = () => {
         totalPrice:0
     })
 
-    const addMealHandler = (meal)=>{
+    // 创建一个过滤meals的函数
+    const filterHandler =(keyword)=>{
+        const newMealsData = MEALS_DATA.filter(item => item.title.indexOf(keyword) !== -1)
+        setMealsData(newMealsData)
+    }
+
+    const addItem = (meal)=>{
         const newCart = {...cartData}
         //判断购物车中是否有该商品
         if(newCart.items.indexOf(meal) === -1){
@@ -85,7 +94,7 @@ const App = () => {
         setCartData(newCart)
     }
 
-    const subMealHandler = (meal)=>{
+    const removeItem = (meal)=>{
         const newCart = {...cartData}
         //减少商品数量
         meal.amount -= 1
@@ -99,15 +108,27 @@ const App = () => {
         //修改商品总数和总金额
         newCart.totalAmount -= 1
         newCart.totalPrice -= meal.price
+        setCartData(newCart)
+    }
 
+    const clearCart = ()=>{
+        const newCart = {...cartData};
+        newCart.items.forEach(item => delete item.amount)
+        newCart.item = []
+        newCart.totalAmount = 0
+        newCart.totalPrice = 0
         setCartData(newCart)
     }
 
     return (
         <>
-            {/* <div style={{width:'750rem', height:200, backgroundColor:'#bfa'}}></div> */}
-            <Meals mealsData={mealsData} onAdd={addMealHandler} onSub={subMealHandler}/>
-
+            {/* context app->counter */}
+            <CartContext.Provider value={{...cartData,addItem,removeItem,clearCart}}>
+                <FilterMeals onFilter={filterHandler}/>
+                {/* <div style={{width:'750rem', height:200, backgroundColor:'#bfa'}}></div> */}
+                 <Meals mealsData={mealsData}/>  
+                 <Cart/>
+            </CartContext.Provider>
         </>
     );
 };

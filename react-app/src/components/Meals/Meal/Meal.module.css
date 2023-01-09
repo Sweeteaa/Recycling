@@ -13,6 +13,11 @@ img{
     width: 100%;
 }
 
+.DescBox{
+    width: 98%;
+    flex: auto;
+}
+
 .Title{
     font-weight: normal;
     font-size: 35rem;
@@ -26,6 +31,7 @@ img{
     font-size: 27rem;
     padding-right: 10rem;
 }
+
 
 .PriceWrap{
     margin-top: 40rem;

@@ -233,5 +233,31 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
 <p>专门用来作为父容器组件，只会将内部的子元素直接返回，不会创建多余元素</p>
 
 
+## Context
+方法一：
+- 不同组件间共享数据的方式，相当于一个公共的存储空间，可以将多个组件中都需要访问的数据统一存储到一个Context中。
+- 通过React.createContext()创建Context
+    1. 引入Context
+    2. 使用xxx.Consumer组件创建元素 Consumer标签体需要一个回调函数
 
+方法二：(只适用函数组件)
+- 通过React.createContext()创建Context
+    1. 引入Context
+    2. 使用钩子函数useContext()获取到context 需要一个context作为参数
 
+>不能作为state，使组件重新渲染   
+
+#### xxx.Provider
+- 表示数据的生产者，使用它指定Context中数据
+- 通过value来指定Context中存储的数据
+    在该组件的所有子组件中都可以通过Context来访问它所指定的数据
+```
+        <TestContext.Provider value={{name:'猪八戒',age:12}}>
+            <A/>
+            <B/>
+            {/* <div style={{width:'750rem', height:200, backgroundColor:'#bfa'}}></div> */}
+            <Meals mealsData={mealsData} onAdd={addMealHandler} onSub={subMealHandler}/>
+        </TestContext.Provider>
+```
+
+>当我们通过Context访问数据时，会读取离他最近的Provider中的数据；没有Provider则读取Context中的默认数据。
