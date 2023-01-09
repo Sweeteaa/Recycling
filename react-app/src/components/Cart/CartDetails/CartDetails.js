@@ -10,8 +10,10 @@ const CartDetails = () => {
 
     const ctx = useContext(CartContext)
 
+
     const deleteHandler = ()=>{
         ctx.clearCart()
+        
     }
 
     return (

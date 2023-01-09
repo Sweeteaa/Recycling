@@ -114,7 +114,7 @@ const App = () => {
     const clearCart = ()=>{
         const newCart = {...cartData};
         newCart.items.forEach(item => delete item.amount)
-        newCart.item = []
+        newCart.items = []
         newCart.totalAmount = 0
         newCart.totalPrice = 0
         setCartData(newCart)
