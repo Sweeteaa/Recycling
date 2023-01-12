@@ -37,6 +37,16 @@
     right: -19rem;
 }
 
+.NoChoice{
+    margin-left: 120rem;
+    color: rgb(175, 175, 175);
+    font-size: 36rem;
+    display: flex;
+    align-items: center;
+    /* background-color: aqua; */
+    font-weight: bold;
+}
+
 .Price{
     margin-left: 120rem;
     color: #fff;
@@ -52,31 +62,19 @@
     font-size: 25rem;
 }
 
-.NoChoice{
-    margin-left: 120rem;
-    color: rgb(175, 175, 175);
-    font-size: 36rem;
-    display: flex;
-    align-items: center;
-    /* background-color: aqua; */
-    font-weight: bold;
-}
-
 .Button{
     background-color: #fcbf49;
     border: none;
-    width: 160rem;
+    width: 170rem;
     border-radius: 20px;
-    font-size: 36rem;
-    font-weight: bold;
+    font-size: 34rem;
 }
 
 .NoButton{
     background-color: #8b8b8b;
     border: none;
-    width: 160rem;
+    width: 170rem;
     border-radius: 20px;
-    font-size: 36rem;
+    font-size: 34rem;
     color: rgb(228, 228, 228);
-    font-weight: bold;
 }

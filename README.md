@@ -261,3 +261,43 @@ react会监控这个变量的变化，state变化时，会自动触发组件的�
 ```
 
 >当我们通过Context访问数据时，会读取离他最近的Provider中的数据；没有Provider则读取Context中的默认数据。
+
+## React.StrictMode
+>避免组件中出现那些会产生副作用的代码
+
+React的**严格模式**，在处于开发模式下，会主动的重复调用一些函数，以使副作用显现。所以在处于开发模式且开启了React严格模式时，这些函数会被调用两次：
+
+1. 类组件的的 constructor, render, 和 shouldComponentUpdate 方法
+2. 类组件的静态方法 getDerivedStateFromProps
+3. 函数组件的函数体
+4. 参数为函数的setState
+5. 参数为函数的useState, useMemo, or useReducer5
+
+## setState的执行过程（函数组件）
+判断组件当前处于什么阶段
+1. 渲染阶段
+    不会检查state值是否相同
+
+2. 不是渲染阶段
+     - 值不相同，会对组件进行重新渲染
+     - 值相同，不会对组件进行重新渲染（在某些情况下会继续执行当前组件的渲染，但是不会触发子组件的渲染，不会产生实际的变化）
+
+## Effect
+>useEffect()是一个钩子函数。需要一个函数作为参数。
+>默认情况——作为参数的函数将会**在组件渲染完毕后执行**
+>可以传递第二个参数（数组），指定useEffect的依赖——只有**依赖发生变化**，effect才会被触发（形成了闭包）
+>将effec中使用的所有的局部变量都设置为依赖项，可以确保值发生变化时会触发effect的执行；依赖项为空数组，只会组件初始化时只触发一次
+在开发过程中，可以将会产生副作用的代码编写到useEffect()中，避免影响代码的组件渲染
+
+## Reduce
+useReduce(reducer,initalArg,init)
+
+const [count, countDispatch] = useReducer(()=>{},1)
+参数：
+1. reducer：整合函数，对当前state的所有操作都在该函数中定义，该函数返回值会成为state的新值
+    reducer在执行时会收到两个参数：1.state 当前最新的state 2.action 需要一个对象来存储dispatch发出的指令，根据action中不同的type来执行不同操作
+2. initalArg：state初始值，作用和useState()中的值一样
+
+返回值：
+1. 用来获取state的值
+2. state修改的派发器，可以发送操作state的命令，具体的修改行为将会由另外一个函数（reducer）执行

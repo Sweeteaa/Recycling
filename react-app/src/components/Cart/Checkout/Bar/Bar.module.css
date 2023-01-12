@@ -1,0 +1,37 @@
+.Bar{
+    position: fixed;
+    width: 700rem;
+    height: 80rem;
+    background-color: #333;
+    bottom: 30rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 9999;
+}
+
+.Price{
+    margin-left: 60rem;
+    color: #fff;
+    font-size: 36rem;
+    display: flex;
+    align-items: center;
+    /* background-color: aqua; */
+    font-weight: bold;
+}
+
+.Price::before{
+    content: '￥';
+    font-size: 25rem;
+}
+
+.Button{
+    background-color: #fcbf49;
+    border: none;
+    width: 170rem;
+    border-radius: 20px;
+    font-size: 34rem;
+}

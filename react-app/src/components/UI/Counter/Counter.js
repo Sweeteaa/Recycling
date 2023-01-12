@@ -30,7 +30,7 @@ const Counter = (props) => {
                 ) : null
 
             }
-            <button className={classes.Add} onClick={addButtonHandler}><span>+</span></button>
+            <button className={classes.Add} onClick={addButtonHandler} ><span>+</span></button>
         </div>
     );
 };
