@@ -28,7 +28,7 @@ const CartDetails = () => {
     }
 
     const deleteHandler = ()=>{
-        ctx.clearCart()
+        ctx.cartDispatch({type:'CLEAR'})
     }
 
     return (
