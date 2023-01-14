@@ -317,3 +317,80 @@ const [count, countDispatch] = useReducer(()=>{},1)
         ...
     }.[])
 ```
+
+## fetch————普通写法
+>组件初始化时需要向服务器发情请求来加载数据
+在effect中加载数据，fetch()用来向服务器发送请求加载数据，是ajax的升级版
+需要两个参数：1、请求地址 2、请求信息
+```
+    useEffect(()=>{
+        //成功调用then()
+        //失败调用catch()
+        setLoading(ture)
+        setError(null)
+        fetch('地址').then(()=>{
+            if(res.ok){
+                return res.json()//将响应的json直接转换为js对象
+            }
+            //代码运行到这证明没有成功加载数据
+            setLoading(false)
+            //抛出错误
+            throw new Error('数据加载失败')
+        }).then(data = >{
+            //data:数据库数据=>js对象
+            console.log(data.data)
+            //将加载到的数据设置到state中
+            setStuData(data.data)
+        })
+        .catch((e)=>{
+            //catch中回调函数处理错误
+            <!-- console.log(e) -->
+            setLoading(false)
+            //设置错误状态
+            setError(e.message2)
+        },[])
+    })
+```
+
+### fetch————await写法
+- useEffect中不能调用异步函数
+- async变为异步函数，同步写法await返回fetch异步结果
+- try...catch..捕获错误
+```
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            try{
+                setLoading(ture)
+                setError(null)
+                const res = await fetch('地址')
+                <!-- console.log(res) -->
+                if(res.ok){
+                    const data = await res.json()
+                    setStuData(data)
+                }
+                else{
+                    throw new Error('数据加载失败')
+                }
+            }catch(e){
+                setError(e)
+            }finally{
+                setLoading(false)
+            }
+            
+        }
+        fetchData()
+    },[])
+```
+
+## 自定义钩子
+
+React中的钩子函数只能在函数组件或自定义钩子中调用
+当我们需要将react中钩子函数提取到一个**公共区域**时，就可以使用**自定义钩子**
+>自定义钩子就是一个普通函数，只是名字以use开头
+**在类中**定义的箭头函数this永远指向实例对象
+
+```
+export default function UseFetch(){
+    
+}
+```
