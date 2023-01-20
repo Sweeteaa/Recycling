@@ -394,3 +394,120 @@ export default function UseFetch(){
     
 }
 ```
+
+## redux——一个专为js设计的可预期的状态容器
+稳定、安全的状态管理器、适合大型应用
+state：不可预期
+redux：可预期
+
+步骤：
+1. 引入redux核心包
+2. 创建reducer整合函数
+3. 通过reducer对象创建store
+4. 对store中的state进行订阅
+5. 通过dispatch派发state的操作指令
+
+```
+    function reducer(state,action){
+        //state 表示当前state
+        //action 一个js对象，保存操作信息
+        switch(action.type){
+            case 'ADD':
+                return state + 1
+            case 'SUB':
+                return state - 1
+            default:
+                return state;
+        }
+    }
+
+    const store = Redux.createStore(reducer, 1)
+
+    store.subscribe(()=>{
+        //打印state值
+        countSpan.innerText = store.getState()
+    })
+
+    subBtn.addEventListener('click', ()=>{
+        store.dispatch({type:'SUB'})
+    })
+```
+
+## RTK(Redux ToolKit)
+处理redux中重复性工作，简化redux中各种操作
+
+
+## Router5
+1. 引入react-router-dom包
+2. 在index.js中引入BrowserRouter组件
+3. 将BrowserRouter/HashRouter(#t)设置为根组件
+
+```
+    <div>
+        {/* 路由和组件进行映射 */}
+         <Route path="/" component/render/children={Home}/>
+    </div>
+```
+
+path：映射的url
+component：要挂载的组件，需要直接传递组件类（params）
+render：指定要挂载的组件，回调函数形式，可以返回参数
+children：指定要挂载的组件，回调函数形式，无论路径是否匹配都会挂载
+
+>默认不是严格匹配，exact开启严格匹配
+
+使用注意：
+1. 不使用a标签创建超链接，会发生刷新，用**Link**组件```<Link to="/"></Link>```
+2. 也可以使用**NavLink**组件，和Link作用相似，可以指定链接激活样式```<NavLink activeClassName={classes.active} activeStyle={{}}></NavLink>```
+
+>push，有历史记录
+>replace 无历史记录，替换历史记录
+
+#### 路由组件
+1. Prompt组件，提示信息
+2. Redirect组件，重定向
+
+## Route6
+Route中的component、render、children都变了，需要通过element指定要挂载的组件，传递jsx
+```
+App.js
+    <Routes>
+        <Route path={"/"} element={<Home/>}></Route>
+        <Route path={"/about/*"} element={<About/>}></Route>
+    </Routes>
+```
+
+钩子函数：
+- useParams()获取路径请求参数
+- useLocation()获取当前地址栏信息
+- useMatch("/路由")检查当前url地址是否匹配某个路由，返回值，匹配返回对象，不匹配返回null
+- useNavigate()，代替了useHistory()，获取用于跳转页面的函数```const nav = useNavigate() nav('/')```
+
+嵌套路由：
+```
+写法一：
+About.js
+    <Routes>
+        <Route path={"hello"} element={<Hello/>}></Route>
+    </Routes>
+
+写法二：
+App.js
+    <Routes>
+        <Route path={"/"} element={<Home/>}></Route>
+        <Route path={"about"} element={<About/>}>
+            <Route path={"hello"} element={<Hello/>}></Route>
+        </Route>
+    </Routes>
+
+About.js
+Outlet表示嵌套路由中的组件，当嵌套路由中的路径匹配成功了，Outlet则表示嵌套路由中的组件
+    <Outlet/>
+
+```
+
+#### Route6组件
+1. Navigate，与Redirect类似，帮助跳转到指定位置，默认push，回退会产生死循环
+ ```<Navigate replace to="/student/1"/>```
+2. NavLink，链接被激活后可指定不同样式值
+```<NavLink style={({isActive})=>{return isActive?{backgroundColor:yello}:null}} to="/student/2"/>``` 
